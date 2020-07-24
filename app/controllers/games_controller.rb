@@ -42,7 +42,7 @@ class GamesController < ApplicationController
     patch '/games/:id' do
         set_board_game
         if logged_in?
-            if board_game.user == current_user
+            if board_game.user == current_user && params[:game_name] != ""
                 @board_game.update(game_name: params[:game_name])
                 redirect "/games/#{@board_game.id}"
             else

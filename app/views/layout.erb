@@ -15,7 +15,9 @@
   </head>
   <body>
     <div class="nav">
-      <a href="/logout">Logout</a>
+      <% if logged_in? %>
+        <a href="/logout">Logout</a>
+      <% end %>
     </div>
     <div class="wrapper">
 
