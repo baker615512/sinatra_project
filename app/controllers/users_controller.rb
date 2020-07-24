@@ -32,4 +32,9 @@ class UsersController < ApplicationController
         @user = User.find_by(id: params[:id])
         erb :'/users/show'
     end
+
+    get '/logout' do
+        session.clear
+        redirect '/'
+    end
 end
