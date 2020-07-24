@@ -1,9 +1,10 @@
 class GamesController < ApplicationController
 
     get '/games/index' do
+        @board_games = BoardGame.all 
         erb :'/games/index'
     end
-    
+
     get '/games/new' do
         erb :'/games/new'
     end
@@ -13,22 +14,22 @@ class GamesController < ApplicationController
             redirect '/'
         end
         if params[:game_name] != ""
-            @game = Game.create(game_name: params[:game_name], user_id: current_user.id)
-            redirect "/games/#{@game.id}"
+            @board_game = BoardGame.create(game_name: params[:game_name], user_id: current_user.id)
+            redirect "/games/#{@board_game.id}"
         else
             redirect '/games/new'
         end
     end
 
     get '/games/:id' do
-        set_game
+        set_board_game
         erb :'/games/show'
     end
 
     get '/games/:id/edit' do
-        set_game
+        set_board_game
         if logged_in?
-            if game.user == current_user
+            if board_game.user == current_user
                 erb :'/games/edit'
             else
                 redirect "/users/#{current_user.id}"
@@ -39,11 +40,11 @@ class GamesController < ApplicationController
     end
 
     patch '/games/:id' do
-        set_game
+        set_board_game
         if logged_in?
-            if game.user == current_user
-                @game.update(game_name: params[:game_name])
-                redirect "/games/#{@game.id}"
+            if board_game.user == current_user
+                @board_game.update(game_name: params[:game_name])
+                redirect "/games/#{@board_game.id}"
             else
                 redirect "/users/#{current_user.id}"
             end
@@ -52,7 +53,7 @@ class GamesController < ApplicationController
         end
     end
 
-    def set_game
-        @game = Game.find_by(id: params[:id])
+    def set_board_game
+        @board_game = BoardGame.find_by(id: params[:id])
     end
 end
