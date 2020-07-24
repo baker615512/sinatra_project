@@ -23,13 +23,29 @@ class GamesController < ApplicationController
 
     get '/games/:id/edit' do
         set_game
-        erb :'/games/edit'
+        if logged_in?
+            if game.user == current_user
+                erb :'/games/edit'
+            else
+                redirect "/users/#{current_user.id}"
+            end
+        else
+            redirect '/'
+        end
     end
 
     patch '/games/:id' do
         set_game
-        @game.update(game_name: params[:game_name])
-        redirect "/games/#{@game.id}"
+        if logged_in?
+            if game.user == current_user
+                @game.update(game_name: params[:game_name])
+                redirect "/games/#{@game.id}"
+            else
+                redirect "/users/#{current_user.id}"
+            end
+        else
+            redirect '/'
+        end
     end
 
     def set_game
