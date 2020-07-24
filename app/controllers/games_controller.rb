@@ -53,6 +53,16 @@ class GamesController < ApplicationController
         end
     end
 
+    delete '/games/:id' do
+        set_board_game
+        if board_game.user == current_user
+            @board_game.destroy
+            redirect "/users/#{current_user.id}"
+        else
+            redirect '/games/index'
+        end
+    end
+
     def set_board_game
         @board_game = BoardGame.find_by(id: params[:id])
     end

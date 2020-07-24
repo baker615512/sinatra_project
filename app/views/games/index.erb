@@ -1,1 +1,4 @@
-game index page
+board game index page
+<% @board_games.each do |board_game|
+    <h3><%= board_game.name %></h3>
+<% end %>

@@ -1,9 +1,14 @@
 Show page for game entry
-
-<p><%= @game.game_name %></p>
-
+<br>
+<p><%= @board_game.game_name %></p>
+<br>
+<% if current_user == @board_game.user %>
 Edit Link
-<a href="/games/<%=@game.id%>/edit">Edit game</a>
-
+    <a href="/games/<%= @board_game.id %>/edit">Edit game</a>
+<br>
 Delete Link
-<a href=""</a>
+    <form action="/games/<%= @board_game.id %>" method="POST">
+        <input type="hidden" name="_method" value="DELETE"
+        <input type="submit" value="Delete">
+    </form>
+<% end %>
