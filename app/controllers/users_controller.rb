@@ -19,12 +19,13 @@ class UsersController < ApplicationController
     end
 
     post '/users' do
-        if params[:email] != "" && params[:password] != ""
-            @user = User.new(params)
+        @user = User.new(params)
+        if !@user.save
+            @errors = @user.errors.full_messages
+            erb :'/users/new'
+        else
             session[:user_id] = @user.id 
             redirect "/users/#{@user.id}"
-        else
-            redirect '/signup'
         end
     end
 
