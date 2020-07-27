@@ -1,6 +1,6 @@
 <h1>Edit a game in your collection</h1>
 
-<form action="/games/<%= @board_game.id %>" method 'POST'>
+<form action="/games/<%= @board_game.id %>" method='POST'>
     <label for=game_name>Board Game Name:</label>
     <input type='hidden' name='_method' value='patch'>
     <input type='text' name='game_name' value="<%= @board_game.game_name %>">
