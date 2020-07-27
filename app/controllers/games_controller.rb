@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
-
-    get '/games/index' do
+    
+    get '/games' do
         @board_games = BoardGame.all 
         erb :'/games/index'
     end
@@ -9,12 +9,9 @@ class GamesController < ApplicationController
         erb :'/games/new'
     end
 
-    post '/games' do
-        if !logged_in?
-            redirect '/'
-        end
-        if params[:game_name] != ""
-            @board_game = BoardGame.create(game_name: params[:game_name], user_id: current_user.id)
+    post '/games/new' do
+        if logged_in?
+            @board_game = current_user.board_games.create(params)
             redirect "/games/#{@board_game.id}"
         else
             redirect '/games/new'
