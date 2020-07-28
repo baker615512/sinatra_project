@@ -1,4 +1,5 @@
 <h3>board game index page</h3>
 <% @board_games.each do |board_game| %>
-    <%= board_game.game_name %><br>
+    <%= board_game.game_name %>
+    <p>Recommended by: <%= board_game.user.email %></p><br>
 <% end %>

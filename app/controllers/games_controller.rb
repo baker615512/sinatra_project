@@ -9,7 +9,7 @@ class GamesController < ApplicationController
         erb :'/games/new'
     end
 
-    post '/games/new' do
+    post '/games' do
         if logged_in?
             @board_game = current_user.board_games.create(params)
             redirect "/games/#{@board_game.id}"
