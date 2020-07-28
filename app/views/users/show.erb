@@ -2,7 +2,7 @@
 <h3>These are a few of your favorite games:</h3>
 <h3><ul>
     <% @user.board_games.each do |board_game| %>
-        <%= board_game.game_name %><br>
+        <a href="/games/<%= board_game.id %>"><%= board_game.game_name %></a><br>
     <% end %>
 </ul></h3>
 <a href="/games/new">Add a Game</a>
