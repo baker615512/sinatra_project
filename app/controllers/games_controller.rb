@@ -52,7 +52,7 @@ class GamesController < ApplicationController
 
     delete '/games/:id' do
         set_board_game
-        if board_game.user == current_user
+        if @board_game.user == current_user
             @board_game.destroy
             redirect "/users/#{current_user.id}"
         else

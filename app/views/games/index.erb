@@ -1,7 +1,7 @@
 <h2>Games Recommended by this Community</h2>
-<h3><ul>
+<ul>
     <% @board_games.each do |board_game| %>
-        <%= board_game.game_name %>
+        <h3><%= board_game.game_name %></h3>
         <p>Recommended by: <%= board_game.user.email %></p>
     <% end %>
-</ul></h3>
+</ul>
