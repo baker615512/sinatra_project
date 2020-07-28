@@ -21,7 +21,6 @@ class UsersController < ApplicationController
     post '/users' do
         @user = User.new(params)
         if !@user.save
-            @errors = @user.errors.full_messages
             erb :'/users/new'
         else
             session[:user_id] = @user.id 

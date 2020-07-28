@@ -10,11 +10,14 @@ class GamesController < ApplicationController
     end
 
     post '/games' do
-        if logged_in?
-            @board_game = current_user.board_games.create(params)
-            redirect "/games/#{@board_game.id}"
+        if !logged_in?
+            redirect "/"
+        end
+        @board_game = current_user.board_games.new(params)
+        if !@board_game.save
+            redirect "/games/new"
         else
-            redirect '/games/new'
+            redirect "/games/#{@board_game.id}"
         end
     end
 
