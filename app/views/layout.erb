@@ -18,6 +18,7 @@
       <a href="/">Home</a>
       <a href="/games">All Recommended Games</a>
       <% if logged_in? %>
+        <a href="/users/<%= current_user.id %>">My Games Page</a>
         <a href="/logout">Logout</a>
       <% end %>
     </div>

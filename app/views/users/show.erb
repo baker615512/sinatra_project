@@ -4,5 +4,5 @@
     <% @user.board_games.each do |board_game| %>
         <a href="/games/<%= board_game.id %>"><%= board_game.game_name %></a><br>
     <% end %>
-</ul></h3>
+</ul></h3><br>
 <a href="/games/new">Add a Game</a>
