@@ -10,9 +10,7 @@ class GamesController < ApplicationController
     end
 
     post '/games' do
-        if !logged_in?
-            redirect "/"
-        end
+        redirect_if_not_logged_in
         @board_game = current_user.board_games.new(params)
         if !@board_game.save
             redirect "/games/new"
@@ -28,28 +26,22 @@ class GamesController < ApplicationController
 
     get '/games/:id/edit' do
         set_board_game
-        if logged_in?
-            if @board_game.user == current_user
-                erb :'/games/edit'
-            else
-                redirect "/users/#{current_user.id}"
-            end
+        redirect_if_not_logged_in
+        if @board_game.user == current_user
+            erb :'/games/edit'
         else
-            redirect '/'
+            redirect "/users/#{current_user.id}"
         end
     end
 
     patch '/games/:id' do
         set_board_game
-        if logged_in?
-            if @board_game.user == current_user && params[:game_name] != ""
-                @board_game.update(game_name: params[:game_name])
-                redirect "/games/#{@board_game.id}"
-            else
-                redirect "/users/#{current_user.id}"
-            end
+        redirect_if_not_logged_in
+        if @board_game.user == current_user && params[:game_name] != ""
+            @board_game.update(game_name: params[:game_name])
+            redirect "/games/#{@board_game.id}"
         else
-            redirect '/'
+            redirect "/users/#{current_user.id}"
         end
     end
 
